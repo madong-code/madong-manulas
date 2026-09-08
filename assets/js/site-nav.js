@@ -8,6 +8,9 @@
  * 新增手册只需在下方 NAV / MORE 数组追加一项即可（单一事实源）。
  */
 (function () {
+  // GitHub Pages 子路径部署时，内部整页跳转需带基址，否则 /manuals/...、/ 会跳到域名根 404。
+  var BASE = (location.pathname.replace(/\/manuals\/.*$/, '') || '');
+  function withBase(u) { return u.charAt(0) === '/' ? BASE + u : u; }
   // 主导航：直接平铺的手册链接
   var NAV = [
     { name: '标准版手册', url: '/manuals/standard/' },
@@ -28,16 +31,16 @@
   var header = document.createElement('header');
   header.className = 'site-nav';
 
-  var brand = '<a class="site-nav__brand" href="/" data-full>Madong 文档</a>';
+  var brand = '<a class="site-nav__brand" href="' + withBase('/') + '" data-full>Madong 文档</a>';
 
   var links = NAV.map(function (n) {
     return '<a class="site-nav__link' + (isActive(n.url) ? ' is-active' : '') +
-      '" href="' + n.url + '" data-full>' + n.name + '</a>';
+      '" href="' + withBase(n.url) + '" data-full>' + n.name + '</a>';
   }).join('');
 
   var moreItems = MORE.map(function (n) {
     return '<a class="site-nav__menu-item' + (n.soon ? ' is-soon' : '') +
-      '" href="' + n.url + '" data-full>' + (n.soon ? '🚧 ' : '') + n.name +
+      '" href="' + withBase(n.url) + '" data-full>' + (n.soon ? '🚧 ' : '') + n.name +
       (n.soon ? '<span class="site-nav__soon">规划中</span>' : '') + '</a>';
   }).join('');
 

@@ -16,6 +16,11 @@
   var name = cfg.name || 'Madong 手册';
   var homepage = cfg.homepage || 'README.md';
 
+  // GitHub Pages 部署在子路径（如 /madong-manulas/）下，内部整页跳转需带基址，
+  // 否则 /manuals/...、/ 会跳到域名根导致 404。这里按当前路径推导基址。
+  var BASE = (location.pathname.replace(/\/manuals\/.*$/, '') || '');
+  function withBase(u) { return u.charAt(0) === '/' ? BASE + u : u; }
+
   // ---- Docsify 官方推荐配置 ----
   window.$docsify = {
     name: name,
@@ -258,14 +263,14 @@
               (!current && n.url === '/');
             var label = n.name + (n.soon ? '（规划中）' : '');
             return '<a class="shared-docs-menu__item' + (active ? ' active' : '') +
-              (n.soon ? ' soon' : '') + '" href="' + n.url + '" data-full>' +
+              (n.soon ? ' soon' : '') + '" href="' + withBase(n.url) + '" data-full>' +
               (n.soon ? '🚧 ' : '') + label + '</a>';
           }).join('');
 
           var li = document.createElement('li');
           li.id = 'shared-docs-menu';
           li.className = 'shared-docs-menu';
-          li.innerHTML = '<a class="shared-docs-menu__toggle" href="/" data-full>文档中心 ▾</a>' +
+          li.innerHTML = '<a class="shared-docs-menu__toggle" href="' + withBase('/') + '" data-full>文档中心 ▾</a>' +
             '<div class="shared-docs-menu__panel">' + items + '</div>';
           nav.insertBefore(li, nav.firstChild);
 
@@ -299,7 +304,7 @@
           f.innerHTML =
             '<span>© 2026 Madong 极速开发框架 · 文档由 Docsify 驱动</span>' +
             '<span class="docs-footer__links">' +
-            '<a href="/">文档中心</a>' +
+            '<a href="' + withBase('/') + '">文档中心</a>' +
             '<a href="https://github.com/madong" target="_blank" rel="noopener">GitHub</a>' +
             '<a href="https://gitee.com/madong" target="_blank" rel="noopener">Gitee</a>' +
             '<a href="https://gitcode.com/madong" target="_blank" rel="noopener">GitCode</a>' +
