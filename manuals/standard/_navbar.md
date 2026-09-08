@@ -1,4 +1,3 @@
-- [← 文档门户](../../index.html)
 - [介绍](guide/intro/index.md)
 - [安装](guide/install/index.md)
 - [前端](guide/frontend/index.md)

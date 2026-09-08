@@ -51,28 +51,8 @@
       id: 'standard',
       name: '标准版手册',
       homepage: 'README.md',
-      // 门禁配置（对象式 · 多策略 / 文档级）
-      //  - default:         该手册默认模式，'protected' 走密钥，'public' 全册免密
-      //  - keyId:           默认使用的密钥策略 id（'default' = 站点级共享密钥）
-      //  - rules:           文档级规则，按顺序命中首个（支持 * 单层 / ** 任意深度）
-      //       match 'guide/intro/**' + access 'public'  → 排除「介绍」整节为免密公开
-      //       match 'guide/internal/**' + access 'protected' + keyId 'vip'
-      //                         → 该目录改用独立密钥（需在 policies 注册 vip）
-      //  - policies:        本手册独立密钥策略；未列出则回落站点默认密钥
-      access: {
-        default: 'protected',
-        keyId: 'standard',                 // 本手册独立策略（密钥同站点：madong）
-        rules: [
-          { match: 'guide/intro/**', access: 'public' },                  // 排除：介绍整节免密
-          { match: 'guide/internal/**', access: 'protected', keyId: 'vip' } // 局部独立密钥：内部资料
-        ],
-        policies: {
-          // 本手册密钥：与站点密钥一致（madong），仅演示「每册可独立配置」
-          standard: { salt: 'madong-docs', hash: 'ccfbd727fd6330febbf171c61290af25c34addca37fd2e9f8ac153dd5c308f2d', title: '标准版手册', tip: '请输入标准版密钥（madong）' },
-          // 局部独立密钥：仅 guide/internal/** 下文档需要，密钥 vip123
-          vip: { salt: 'vip-salt', hash: '807cfac82bde16d00007439892d73667f9fbb3f0da4b1c328e03257b745aedc3', title: 'VIP 内部资料', tip: '请输入内部资料密钥（vip123）' }
-        }
-      }
+      // 门禁：标准版手册整体公开（免密钥）
+      access: 'public'
     };
     DocsifyGate.bind();
   </script>

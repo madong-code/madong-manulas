@@ -58,7 +58,7 @@ window.DocsifyGate = {
   _policy: function (id) {
     if (!id || id === 'default') {
       return {
-        salt: this.salt, hash: this.hash, ttlDays: this.ttlDays,
+        salt: this.salt, hash: this.hash, key: this.key, ttlDays: this.ttlDays,
         storageKey: this.storageKey, title: this.title, tip: this.tip
       };
     }
@@ -67,6 +67,7 @@ window.DocsifyGate = {
     return {
       salt: p.salt !== undefined ? p.salt : this.salt,
       hash: p.hash !== undefined ? p.hash : this.hash,
+      key: p.key,
       ttlDays: p.ttlDays !== undefined ? p.ttlDays : this.ttlDays,
       storageKey: p.storageKey || ('madong.docs.gate.' + id),
       title: p.title || this.title,
@@ -138,6 +139,16 @@ window.DocsifyGate = {
       var val = input.value;
       if (!val) { self._shake(err, '请输入密钥'); return; }
       var pol = self._policy(self._activeKey);
+      // 明文密钥模式：直接比对（类似语雀文档分享密码，便于随时改值）
+      if (pol.key !== undefined && pol.key !== '') {
+        if (val === pol.key) {
+          self.unlock(self._activeKey);
+        } else {
+          self._shake(err, '密钥错误，请重试');
+        }
+        return;
+      }
+      // 哈希模式：SHA-256(salt + 输入) 比对
       self.compute(val, pol.salt).then(function (h) {
         if (h === pol.hash) {
           self.unlock(self._activeKey);
@@ -185,6 +196,7 @@ window.DocsifyGate = {
         self.policies[k] = {
           salt: p.salt !== undefined ? p.salt : self.salt,
           hash: p.hash !== undefined ? p.hash : self.hash,
+          key: p.key,
           ttlDays: p.ttlDays !== undefined ? p.ttlDays : self.ttlDays,
           storageKey: p.storageKey || ('madong.docs.gate.' + k),
           title: p.title || self.title,
