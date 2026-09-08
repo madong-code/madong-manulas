@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>使用文档 · Madong 文档中心</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <!-- 开发期禁用缓存：给同源 .md/.js/.css 请求追加时间戳，强制实时加载 -->
+  <script>
+    (function () {
+      function bustUrl(u) {
+        if (!u || /^(https?:)?\/\//.test(u) || u.indexOf('_t=') > -1) return u;
+        return u + (u.indexOf('?') > -1 ? '&' : '?') + '_t=' + Date.now();
+      }
+      if (window.fetch) {
+        var _f = window.fetch;
+        window.fetch = function (input, init) {
+          var url = typeof input === 'string' ? input : (input && input.url) || '';
+          if (/\.(md|js|css)(\?|#|$)/.test(url)) {
+            if (typeof input === 'string') input = bustUrl(url);
+            else if (input && input.url) input = new Request(bustUrl(input.url), input);
+          }
+          return _f.call(this, input, init);
+        };
+      }
+      var mo = window.MutationObserver && new MutationObserver(function (muts) {
+        muts.forEach(function (m) {
+          m.addedNodes.forEach(function (n) {
+            if (n.tagName === 'SCRIPT' && n.src) n.src = bustUrl(n.src);
+            if (n.tagName === 'LINK' && n.href) n.href = bustUrl(n.href);
+          });
+        });
+      });
+      if (mo) mo.observe(document.documentElement, { childList: true, subtree: true });
+    })();
+  </script>
+
+  <link rel="stylesheet" href="assets/libs/vue.css" />
+  <link rel="stylesheet" href="assets/css/manual.css" />
+</head>
+<body>
+  <div id="app">加载文档中…</div>
+
+  <!-- 先声明手册元信息，再交由 manual-boot.js 拼出 window.$docsify -->
+  <script>
+    window.__MANUAL__ = {
+      id: 'usage',
+      name: '使用文档',
+      homepage: '使用文档.md'
+    };
+  </script>
+  <script src="assets/js/manual-boot.js"></script>
+  <script>
+    // 使用文档为单页，无需侧边栏 / 顶部导航菜单
+    window.$docsify.loadSidebar = false;
+    window.$docsify.loadNavbar = false;
+  </script>
+
+  <script src="assets/libs/docsify.min.js"></script>
+  <script src="assets/libs/search.min.js"></script>
+  <script src="assets/libs/countable.min.js"></script>
+  <script src="assets/libs/prism-javascript.min.js"></script>
+  <script src="assets/libs/prism-markup-templating.min.js"></script>
+  <script src="assets/libs/prism-typescript.min.js"></script>
+  <script src="assets/libs/prism-vue.min.js"></script>
+  <script src="assets/libs/prism-json.min.js"></script>
+  <script src="assets/libs/prism-ini.min.js"></script>
+  <script src="assets/libs/prism-bash.min.js"></script>
+</body>
+</html>

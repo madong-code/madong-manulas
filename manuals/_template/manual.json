@@ -1,0 +1,12 @@
+{
+  "id": "<id>",
+  "name": "<手册名>",
+  "type": "app",
+  "desc": "<一句话描述>",
+  "version": "v5.x",
+  "status": "active",
+  "path": "manuals/<id>/",
+  "entry": "manuals/<id>/",
+  "access": "protected",
+  "tags": ["标签1", "标签2"]
+}

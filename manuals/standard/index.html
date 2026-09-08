@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>标准版手册 · Madong</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <!-- 开发期禁用缓存：给同源 .md/.js/.css 请求追加时间戳，强制实时加载 -->
+  <script>
+    (function () {
+      function bustUrl(u) {
+        if (!u || /^(https?:)?\/\//.test(u) || u.indexOf('_t=') > -1) return u;
+        return u + (u.indexOf('?') > -1 ? '&' : '?') + '_t=' + Date.now();
+      }
+      if (window.fetch) {
+        var _f = window.fetch;
+        window.fetch = function (input, init) {
+          var url = typeof input === 'string' ? input : (input && input.url) || '';
+          if (/\.(md|js|css)(\?|#|$)/.test(url)) {
+            if (typeof input === 'string') input = bustUrl(url);
+            else if (input && input.url) input = new Request(bustUrl(input.url), input);
+          }
+          return _f.call(this, input, init);
+        };
+      }
+      var mo = window.MutationObserver && new MutationObserver(function (muts) {
+        muts.forEach(function (m) {
+          m.addedNodes.forEach(function (n) {
+            if (n.tagName === 'SCRIPT' && n.src) n.src = bustUrl(n.src);
+            if (n.tagName === 'LINK' && n.href) n.href = bustUrl(n.href);
+          });
+        });
+      });
+      if (mo) mo.observe(document.documentElement, { childList: true, subtree: true });
+    })();
+  </script>
+
+  <link rel="stylesheet" href="../../assets/libs/vue.css" />
+  <link rel="stylesheet" href="../../assets/css/manual.css" />
+  <link rel="stylesheet" href="../../assets/css/gate.css" />
+</head>
+<body>
+  <div id="app">加载文档中…</div>
+
+  <script src="../../assets/js/gate.js"></script>
+  <script>
+    window.__MANUAL__ = {
+      id: 'standard',
+      name: '标准版手册',
+      homepage: 'README.md',
+      // 门禁配置（对象式 · 多策略 / 文档级）
+      //  - default:         该手册默认模式，'protected' 走密钥，'public' 全册免密
+      //  - keyId:           默认使用的密钥策略 id（'default' = 站点级共享密钥）
+      //  - rules:           文档级规则，按顺序命中首个（支持 * 单层 / ** 任意深度）
+      //       match 'guide/intro/**' + access 'public'  → 排除「介绍」整节为免密公开
+      //       match 'guide/internal/**' + access 'protected' + keyId 'vip'
+      //                         → 该目录改用独立密钥（需在 policies 注册 vip）
+      //  - policies:        本手册独立密钥策略；未列出则回落站点默认密钥
+      access: {
+        default: 'protected',
+        keyId: 'standard',                 // 本手册独立策略（密钥同站点：madong）
+        rules: [
+          { match: 'guide/intro/**', access: 'public' },                  // 排除：介绍整节免密
+          { match: 'guide/internal/**', access: 'protected', keyId: 'vip' } // 局部独立密钥：内部资料
+        ],
+        policies: {
+          // 本手册密钥：与站点密钥一致（madong），仅演示「每册可独立配置」
+          standard: { salt: 'madong-docs', hash: 'ccfbd727fd6330febbf171c61290af25c34addca37fd2e9f8ac153dd5c308f2d', title: '标准版手册', tip: '请输入标准版密钥（madong）' },
+          // 局部独立密钥：仅 guide/internal/** 下文档需要，密钥 vip123
+          vip: { salt: 'vip-salt', hash: '807cfac82bde16d00007439892d73667f9fbb3f0da4b1c328e03257b745aedc3', title: 'VIP 内部资料', tip: '请输入内部资料密钥（vip123）' }
+        }
+      }
+    };
+    DocsifyGate.bind();
+  </script>
+  <script src="../../assets/js/manual-boot.js"></script>
+  <script src="../../assets/js/theme.js"></script>
+
+  <script src="../../assets/libs/docsify.min.js"></script>
+  <script src="../../assets/libs/search.min.js"></script>
+  <script src="../../assets/libs/countable.min.js"></script>
+  <script src="../../assets/libs/prism-javascript.min.js"></script>
+  <script src="../../assets/libs/prism-markup-templating.min.js"></script>
+  <script src="../../assets/libs/prism-typescript.min.js"></script>
+  <script src="../../assets/libs/prism-vue.min.js"></script>
+  <script src="../../assets/libs/prism-json.min.js"></script>
+  <script src="../../assets/libs/prism-ini.min.js"></script>
+  <script src="../../assets/libs/prism-bash.min.js"></script>
+</body>
+</html>

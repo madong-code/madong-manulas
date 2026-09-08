@@ -1,0 +1,94 @@
+/* assets/css/gate.css — 共享密钥门禁遮罩（门户与手册通用） */
+
+.docs-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(20, 26, 40, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  animation: docs-gate-fade .35s ease;
+}
+@keyframes docs-gate-fade { from { opacity: 0; } to { opacity: 1; } }
+
+.docs-gate__card {
+  width: min(92vw, 380px);
+  padding: 38px 34px 30px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 24px 70px rgba(10, 16, 35, 0.45);
+  text-align: center;
+  animation: docs-gate-pop .4s cubic-bezier(.2, .8, .2, 1);
+}
+@keyframes docs-gate-pop {
+  from { transform: translateY(14px) scale(.96); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+.docs-gate__card.is-shake { animation: docs-gate-shake .4s; }
+@keyframes docs-gate-shake {
+  10%, 90% { transform: translateX(-2px); }
+  20%, 80% { transform: translateX(4px); }
+  30%, 50%, 70% { transform: translateX(-7px); }
+  40%, 60% { transform: translateX(7px); }
+}
+
+.docs-gate__brand {
+  font-size: 22px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #2f6bff, #5b8cff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 8px;
+}
+.docs-gate__tip {
+  color: #5b6472;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.docs-gate__input {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 10px;
+  border: 1px solid #d8dee9;
+  font-size: 15px;
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
+  box-sizing: border-box;
+}
+.docs-gate__input:focus {
+  border-color: #2f6bff;
+  box-shadow: 0 0 0 3px rgba(47, 107, 255, .16);
+}
+.docs-gate__btn {
+  width: 100%;
+  margin-top: 14px;
+  padding: 11px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #2f6bff, #1e4fd8);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .15s, box-shadow .15s;
+}
+.docs-gate__btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 22px rgba(47, 107, 255, .4);
+}
+.docs-gate__err {
+  color: #e34d59;
+  font-size: 13px;
+  min-height: 18px;
+  margin-top: 10px;
+}
+.docs-gate__note {
+  color: #9aa3b2;
+  font-size: 11.5px;
+  margin-top: 14px;
+  line-height: 1.5;
+}

@@ -1,0 +1,12 @@
+{
+  "id": "standard",
+  "name": "标准版手册",
+  "type": "app",
+  "desc": "单租户标准版（template/admin 前端体系），面向常规后台管理场景。",
+  "version": "v5.x",
+  "status": "active",
+  "path": "manuals/standard/",
+  "entry": "manuals/standard/",
+  "access": "protected",
+  "tags": ["PHP", "Webman", "Vue3", "Element Plus"]
+}

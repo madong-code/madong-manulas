@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title><手册名> · Madong</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../../assets/libs/vue.css" />
+  <link rel="stylesheet" href="../../assets/css/manual.css" />
+  <link rel="stylesheet" href="../../assets/css/gate.css" />
+</head>
+<body>
+  <div id="app">加载文档中…</div>
+
+  <script src="../../assets/js/gate.js"></script>
+  <script>
+    // 复制模板后，只需改这里：id 与目录名一致；access: public 免密钥 / protected 需站点密钥
+    window.__MANUAL__ = {
+      id: '<id>',
+      name: '<手册名>',
+      homepage: 'README.md',
+      access: 'protected'
+    };
+    DocsifyGate.bind(window.__MANUAL__.access);
+  </script>
+  <script src="../../assets/js/manual-boot.js"></script>
+
+  <script src="../../assets/libs/docsify.min.js"></script>
+  <script src="../../assets/libs/search.min.js"></script>
+  <script src="../../assets/libs/countable.min.js"></script>
+  <script src="../../assets/libs/prism-javascript.min.js"></script>
+  <script src="../../assets/libs/prism-markup-templating.min.js"></script>
+  <script src="../../assets/libs/prism-typescript.min.js"></script>
+  <script src="../../assets/libs/prism-vue.min.js"></script>
+  <script src="../../assets/libs/prism-json.min.js"></script>
+  <script src="../../assets/libs/prism-ini.min.js"></script>
+  <script src="../../assets/libs/prism-bash.min.js"></script>
+</body>
+</html>

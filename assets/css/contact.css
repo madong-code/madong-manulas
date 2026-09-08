@@ -1,0 +1,109 @@
+/* assets/css/contact.css — 右下角「加入我们」浮动入口（门户 + 手册共用） */
+
+.contact-fab {
+  position: fixed;
+  right: 84px;
+  bottom: 24px;
+  z-index: 60;
+}
+.contact-fab__btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--primary, #2f6bff), var(--primary-2, #5b8cff));
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 8px 22px rgba(47, 107, 255, .35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .15s;
+}
+.contact-fab__btn:hover { transform: translateY(-2px); }
+.contact-fab__panel {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 12px);
+  width: 196px;
+  background: #fff;
+  border: 1px solid #e6e9f0;
+  border-radius: 12px;
+  box-shadow: 0 14px 34px rgba(20, 26, 38, .18);
+  padding: 8px;
+  display: none;
+}
+.contact-fab.open .contact-fab__panel { display: block; }
+.contact-fab__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 9px;
+  color: #2b3340;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+.contact-fab__item:hover { background: #f3f5f9; }
+.contact-fab__ico {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: rgba(47, 107, 255, .1);
+  color: var(--primary, #2f6bff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* 二维码占位弹窗 */
+.contact-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(10, 14, 22, .6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.contact-modal__box {
+  position: relative;
+  background: #fff;
+  border-radius: 14px;
+  padding: 26px;
+  max-width: 320px;
+  width: 100%;
+  text-align: center;
+}
+.contact-modal__close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  border: none;
+  background: none;
+  font-size: 22px;
+  line-height: 1;
+  color: #8a93a6;
+  cursor: pointer;
+}
+.contact-modal__qr {
+  width: 180px;
+  height: 180px;
+  margin: 14px auto;
+  border: 2px dashed #cdd6e6;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #98a1b0;
+  font-size: 13px;
+  text-align: center;
+  line-height: 1.6;
+}
+.contact-modal__note { color: #8a93a6; font-size: 13px; margin: 0; }

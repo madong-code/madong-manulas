@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>Madong 文档中心</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Madong 极速后台开发框架 · 多手册文档中心" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <!-- 开发期禁用缓存：给同源 .md/.js/.css 请求追加时间戳，强制实时加载 -->
+  <script>
+    (function () {
+      function bustUrl(u) {
+        if (!u || /^(https?:)?\/\//.test(u) || u.indexOf('_t=') > -1) return u;
+        return u + (u.indexOf('?') > -1 ? '&' : '?') + '_t=' + Date.now();
+      }
+      if (window.fetch) {
+        var _f = window.fetch;
+        window.fetch = function (input, init) {
+          var url = typeof input === 'string' ? input : (input && input.url) || '';
+          if (/\.(md|js|css)(\?|#|$)/.test(url)) {
+            if (typeof input === 'string') input = bustUrl(url);
+            else if (input && input.url) input = new Request(bustUrl(input.url), input);
+          }
+          return _f.call(this, input, init);
+        };
+      }
+      var mo = window.MutationObserver && new MutationObserver(function (muts) {
+        muts.forEach(function (m) {
+          m.addedNodes.forEach(function (n) {
+            if (n.tagName === 'SCRIPT' && n.src) n.src = bustUrl(n.src);
+            if (n.tagName === 'LINK' && n.href) n.href = bustUrl(n.href);
+          });
+        });
+      });
+      if (mo) mo.observe(document.documentElement, { childList: true, subtree: true });
+    })();
+  </script>
+
+  <link rel="stylesheet" href="assets/css/portal.css" />
+  <link rel="stylesheet" href="assets/css/gate.css" />
+  <link rel="stylesheet" href="assets/css/contact.css" />
+</head>
+<body>
+  <div class="portal">
+    <header class="portal__top">
+      <div class="portal__brand">
+        <div class="portal__logo">M</div>
+        <div>
+          <div class="portal__title">Madong 文档中心</div>
+          <div class="portal__sub">Webman + Vue 3 极速后台开发框架 · 多手册文档站</div>
+        </div>
+      </div>
+      <div class="portal__repo">
+        <button class="portal__repo-btn" type="button">
+          仓库源码
+          <svg class="portal__repo-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="portal__repo-menu">
+          <a href="https://github.com/madong" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://gitee.com/madong" target="_blank" rel="noopener">Gitee</a>
+          <a href="https://gitcode.com/madong" target="_blank" rel="noopener">GitCode</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="portal__divider"></div>
+
+    <div class="portal__bar">
+      <input id="portal-search" class="portal__search" type="text" placeholder="搜索手册名称 / 描述 / 标签…" />
+      <div class="portal__filters">
+        <span class="portal__chip active" data-status="all">全部</span>
+        <span class="portal__chip" data-status="active">在用</span>
+        <span class="portal__chip" data-status="wip">建设中</span>
+        <span class="portal__chip" data-status="deprecated">已废弃</span>
+      </div>
+    </div>
+
+    <!-- JS 渲染挂载点 -->
+    <div id="portal-mount"></div>
+
+    <!-- 无 JS / 加载失败兜底 -->
+    <div id="portal-fallback">
+      <section class="portal__group">
+        <h2 class="portal__group-title">应用手册</h2>
+        <div class="portal__grid">
+          <a class="card" href="manuals/standard/">
+            <div class="card__head"><div class="card__icon">标</div><div><div class="card__name">标准版手册</div><div class="card__meta"><span class="badge badge--active">在用</span><span class="badge badge--ver">v5.x</span></div></div></div>
+            <div class="card__desc">单租户标准版（template/admin 前端体系）。</div>
+            <span class="card__enter">进入手册 →</span>
+          </a>
+          <a class="card" href="manuals/saas/">
+            <div class="card__head"><div class="card__icon">租</div><div><div class="card__name">多租户版手册</div><div class="card__meta"><span class="badge badge--active">在用</span><span class="badge badge--ver">v5.x</span></div></div></div>
+            <div class="card__desc">多租户 SaaS 版（template/mono 前端体系 + SaaS 设计）。</div>
+            <span class="card__enter">进入手册 →</span>
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <p class="portal__hint">新增手册请复制 <code>manuals/_template/</code> 并在 <code>manuals.json</code> 注册一行 · 详见 AI-GUIDE.md</p>
+
+    <footer class="portal__footer">
+      <span>© 2026 Madong 极速开发框架 · 文档由 Docsify 驱动</span>
+      <span class="portal__footer-links">
+        <a href="/">文档中心</a>
+        <a href="使用文档.html">使用文档</a>
+        <a href="https://github.com/madong" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://gitee.com/madong" target="_blank" rel="noopener">Gitee</a>
+        <a href="https://gitcode.com/madong" target="_blank" rel="noopener">GitCode</a>
+      </span>
+    </footer>
+  </div>
+
+  <script src="assets/js/gate.js"></script>
+  <script>
+    DocsifyGate.bind('protected');
+    // 更新顶部 GitHub 链接（如有）
+  </script>
+  <script src="assets/js/portal.js"></script>
+  <script src="assets/js/contact.js"></script>
+</body>
+</html>
