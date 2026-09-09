@@ -47,7 +47,10 @@
   <div class="portal">
     <header class="portal__top">
       <div class="portal__brand">
-        <div class="portal__logo">M</div>
+        <div class="portal__logo">
+          <img id="portal-logo" class="portal__logo-img" src="" alt="" style="display:none" />
+          <span id="portal-logo-text">M</span>
+        </div>
         <div>
           <div class="portal__title">Madong 文档中心</div>
           <div class="portal__sub">Webman + Vue 3 极速后台开发框架 · 多手册文档站</div>
@@ -86,12 +89,12 @@
       <section class="portal__group">
         <h2 class="portal__group-title">应用手册</h2>
         <div class="portal__grid">
-          <a class="card" href="manuals/standard/">
+          <a class="card" href="docs/standard/">
             <div class="card__head"><div class="card__icon">标</div><div><div class="card__name">标准版手册</div><div class="card__meta"><span class="badge badge--active">在用</span><span class="badge badge--ver">v5.x</span></div></div></div>
             <div class="card__desc">单租户标准版（template/admin 前端体系）。</div>
             <span class="card__enter">进入手册 →</span>
           </a>
-          <a class="card" href="manuals/saas/">
+          <a class="card" href="docs/saas/">
             <div class="card__head"><div class="card__icon">租</div><div><div class="card__name">多租户版手册</div><div class="card__meta"><span class="badge badge--active">在用</span><span class="badge badge--ver">v5.x</span></div></div></div>
             <div class="card__desc">多租户 SaaS 版（template/mono 前端体系 + SaaS 设计）。</div>
             <span class="card__enter">进入手册 →</span>
@@ -100,13 +103,12 @@
       </section>
     </div>
 
-    <p class="portal__hint">新增手册请复制 <code>manuals/_template/</code> 并在 <code>manuals.json</code> 注册一行 · 详见 AI-GUIDE.md</p>
+    <p class="portal__hint">新增手册请复制 <code>docs/_template/</code> 并在 <code>docs.json</code> 注册一行 · 详见 AI-GUIDE.md</p>
 
     <footer class="portal__footer">
-      <span>© 2026 Madong 极速开发框架 · 文档由 Docsify 驱动</span>
-      <span class="portal__footer-links">
+      <span id="portal-copyright">© 2026 Madong 极速开发框架 · 文档由 Docsify 驱动</span>
+      <span class="portal__footer-links" id="portal-footer-links">
         <a href="./">文档中心</a>
-        <a href="使用文档.html">使用文档</a>
         <a href="https://github.com/madong" target="_blank" rel="noopener">GitHub</a>
         <a href="https://gitee.com/madong" target="_blank" rel="noopener">Gitee</a>
         <a href="https://gitcode.com/madong" target="_blank" rel="noopener">GitCode</a>
@@ -114,12 +116,61 @@
     </footer>
   </div>
 
+  <script>document.write('<script src="assets/js/site-config.js?_t=' + Date.now() + '"><\/script>');</script>
+  <script>
+    // 首页版权 / 标题 / 底部链接同样由 site-config.js 驱动（此前为硬编码，改配置不生效）
+    (function () {
+      var c = window.SITE_CONFIG || {};
+      var el = document.getElementById('portal-copyright');
+      if (el && c.copyright) el.textContent = c.copyright;
+      if (c.title) document.title = c.title;
+
+      // 品牌 Logo：配置了就显示图片并隐藏文字 "M"
+      // 首页去掉前导 "/"，改用相对路径，部署到子路径（如 GitHub Pages /xxx/）时同样可用
+      var lg = document.getElementById('portal-logo');
+      var lt = document.getElementById('portal-logo-text');
+      if (lg && c.logo) {
+        var src = String(c.logo);
+        if (!/^https?:/i.test(src)) src = src.replace(/^\/+/, '');
+        lg.src = src;
+        lg.style.display = '';
+        lg.style.width = '100%';
+        lg.style.height = '100%';
+        lg.style.objectFit = 'contain';
+        if (lt) lt.style.display = 'none';
+      }
+
+      var lc = document.getElementById('portal-footer-links');
+      if (lc && c.footerLinks && c.footerLinks.length) {
+        // 保留首页本地入口（如"使用文档"这类站内相对链接），避免被配置整体覆盖后丢失
+        var keep = Array.prototype.filter.call(lc.querySelectorAll('a'), function (a) {
+          var h = a.getAttribute('href') || '';
+          return h && !/^(https?:)?\/\//.test(h) && h !== './' && h !== '/';
+        }).map(function (a) { return a.cloneNode(true); });
+
+        lc.innerHTML = '';
+        c.footerLinks.forEach(function (l) {
+          var a = document.createElement('a');
+          a.textContent = String(l.text != null ? l.text : '');
+          a.setAttribute('href', String(l.url != null ? l.url : '#'));
+          if (l.target) { a.setAttribute('target', l.target); a.setAttribute('rel', 'noopener noreferrer'); }
+          lc.appendChild(a);
+        });
+        keep.forEach(function (a) { lc.appendChild(a); });
+      }
+    })();
+  </script>
+  <script>document.write('<script src="assets/js/analytics.js?_t=' + Date.now() + '"><\/script>');</script>
+  <script>
+    // 首页非 SPA：只需初始化，首屏由 hm.js 自动上报一次（避免重复计数）
+    if (window.DocsifyAnalytics) window.DocsifyAnalytics.init();
+  </script>
   <script src="assets/js/gate.js"></script>
   <script>
     DocsifyGate.bind('public');
     // 更新顶部 GitHub 链接（如有）
   </script>
-  <script src="assets/js/portal.js"></script>
+  <script>document.write('<script src="assets/js/portal.js?_t=' + Date.now() + '"><\/script>');</script>
   <script src="assets/js/contact.js"></script>
 </body>
 </html>

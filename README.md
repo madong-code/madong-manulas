@@ -10,9 +10,9 @@ Madong 极速后台开发框架（Webman + Vue 3）的**多手册文档站**。�
 ```
 docs/                      # 发布根（GitHub Pages 指向此目录）
 ├── index.html             # 手册门户首页（卡片索引）
-├── manuals.json           # 手册注册表（单一事实源）
+├── docs.json           # 手册注册表（单一事实源）
 ├── assets/                # 站点级共享：运行时 libs / 主题 / 门禁 / 门户脚本
-├── manuals/
+├── docs/
 │   ├── _template/         # 新手册脚手架（复制即用）
 │   ├── standard/          # 标准版手册（单租户）
 │   └── saas/              # 多租户版手册
@@ -68,7 +68,7 @@ DocsifyGate.bind();
 
 ## 新增一册手册
 
-复制 `docs/manuals/_template/` → 改名（如 `workflow`），在 `manual.json` 填好元信息，再在 `docs/manuals.json` 注册一行即可。详见 [AI-GUIDE.md](docs/AI-GUIDE.md)。
+复制 `docs/_template/` → 改名（如 `workflow`），在 `meta.json` 填好元信息，再在 `docs.json` 注册一行即可。详见 [AI-GUIDE.md](docs/AI-GUIDE.md)。
 
 ## 发布
 

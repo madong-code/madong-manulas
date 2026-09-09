@@ -266,7 +266,7 @@ window.DocsifyGate = {
   },
 
   // —— Docsify 插件工厂：在渲染期逐文档判定密钥 ——
-  // manual-boot.js 会把它 push 进 window.$docsify.plugins
+  // docs-boot.js 会把它 push 进 window.$docsify.plugins
   makePlugin: function () {
     var self = this;
     return function (hook, vm) {

@@ -5,8 +5,8 @@
   "desc": "多租户 SaaS 版（template/mono 前端体系 + SaaS 设计 + 订阅套餐）。",
   "version": "v5.x",
   "status": "active",
-  "path": "manuals/saas/",
-  "entry": "manuals/saas/",
+  "path": "docs/saas/",
+  "entry": "docs/saas/",
   "access": "protected",
   "tags": ["PHP", "Webman", "Nuxt", "多租户", "SaaS"]
 }

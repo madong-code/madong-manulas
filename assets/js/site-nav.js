@@ -8,17 +8,17 @@
  * 新增手册只需在下方 NAV / MORE 数组追加一项即可（单一事实源）。
  */
 (function () {
-  // GitHub Pages 子路径部署时，内部整页跳转需带基址，否则 /manuals/...、/ 会跳到域名根 404。
-  var BASE = (location.pathname.replace(/\/manuals\/.*$/, '') || '');
+  // GitHub Pages 子路径部署时，内部整页跳转需带基址，否则 /docs/...、/ 会跳到域名根 404。
+  var BASE = (location.pathname.replace(/\/docs\/.*$/, '') || '');
   function withBase(u) { return u.charAt(0) === '/' ? BASE + u : u; }
   // 主导航：直接平铺的手册链接
   var NAV = [
-    { name: '标准版手册', url: '/manuals/standard/' },
-    { name: 'SaaS 多租户版', url: '/manuals/saas/' }
+    { name: '标准版手册', url: '/docs/standard/' },
+    { name: 'SaaS 多租户版', url: '/docs/saas/' }
   ];
   // 「更多」下拉：规划中 / 入口类
   var MORE = [
-    { name: '工作流引擎', url: '/manuals/workflow/', soon: true },
+    { name: '工作流引擎', url: '/docs/workflow/', soon: true },
     { name: '文档中心', url: '/' }
   ];
 

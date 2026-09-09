@@ -6,7 +6,7 @@
  * - 切换器：顶栏触发按钮 + body 级 portal 面板（分「主题色」「外观」两区）
  *   面板挂到 document.body 并 position:fixed，避免被右侧 TOC（z-index:40）盖住
  *
- * 引入位置：手册 index.html 中，manual-boot.js 之后、docsify.min.js 之前。
+ * 引入位置：手册 index.html 中，docs-boot.js 之后、docsify.min.js 之前。
  */
 (function () {
   var STORE_KEY = 'madong.docs.theme';

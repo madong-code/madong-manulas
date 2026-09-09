@@ -5,8 +5,8 @@
   "desc": "单租户标准版（template/admin 前端体系），面向常规后台管理场景。",
   "version": "v5.x",
   "status": "active",
-  "path": "manuals/standard/",
-  "entry": "manuals/standard/",
+  "path": "docs/standard/",
+  "entry": "docs/standard/",
   "access": "protected",
   "tags": ["PHP", "Webman", "Vue3", "Element Plus"]
 }

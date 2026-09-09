@@ -1,5 +1,5 @@
 /**
- * 门户首页：读取 manuals.json 渲染手册卡片
+ * 门户首页：读取 docs.json 渲染手册卡片
  * - 按 type 分组（应用手册 / 插件手册）
  * - 支持名称/描述/标签搜索 + 状态筛选
  * - 无 JS / fetch 失败时由 #portal-fallback 兜底
@@ -100,10 +100,10 @@
   function init() {
     var fb = el('portal-fallback');
     if (fb) fb.style.display = 'none';
-    fetch('manuals.json', { cache: 'no-store' })
+    fetch('docs.json', { cache: 'no-store' })
       .then(function (r) { return r.json(); })
       .then(function (data) {
-        render(data.manuals || []);
+        render(data.docs || []);
         bindControls();
         bindRepo();
       })

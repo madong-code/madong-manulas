@@ -1,15 +1,15 @@
 # AI-GUIDE · 给 AI / 贡献者
 
-本仓库是 Madong 的**多手册文档站**。每个应用 / 插件是一册自包含目录 `docs/manuals/<id>/`，从门户首页 `docs/index.html` 进入。本文件指导「如何在不动既有内容的前提下，追加一册手册或追加一个板块」。
+本仓库是 Madong 的**多手册文档站**。每个应用 / 插件是一册自包含目录 `docs/<id>/`，从门户首页 `docs/index.html` 进入。本文件指导「如何在不动既有内容的前提下，追加一册手册或追加一个板块」。
 
 ## 一、目录约定（必读）
 
 ```
 docs/
-├── index.html              # 门户首页（卡片索引，由 manuals.json 驱动）
-├── manuals.json            # 手册注册表（单一事实源）
-├── assets/                 # 站点级共享：libs/(运行时) css/ js/(gate/manual-boot/portal) img/
-└── manuals/
+├── index.html              # 门户首页（卡片索引，由 docs.json 驱动）
+├── docs.json            # 手册注册表（单一事实源）
+├── assets/                 # 站点级共享：libs/(运行时) css/ js/(gate/docs-boot/portal) img/
+└── docs/
     ├── _template/          # 脚手架：复制即用
     ├── standard/           # 标准版手册（独立目录，互不影响）
     └── saas/               # 多租户版手册
@@ -17,32 +17,32 @@ docs/
 
 **关键约束**：
 - 移动 / 新增 `.md` 时保持相对目录关系；`guide/` 内的相对链接、以及 `../assets/img/...` 图片引用在整体搬迁后依然有效，**不要改写正文内的相对链接**。
-- 图片统一放 `manuals/<id>/assets/img/<板块>/`，删除手册即删除其图片。
+- 图片统一放 `docs/<id>/assets/img/<板块>/`，删除手册即删除其图片。
 - 正文内容（除新增外）**字节级不变**，不要重写 / 合并既有文章。
 
 ## 二、追加一册新应用 / 插件
 
 1. 复制脚手架：
    ```
-   cp -r docs/manuals/_template docs/manuals/<id>
+   cp -r docs/_template docs/<id>
    ```
-2. 改 `docs/manuals/<id>/index.html` 里的 `window.__MANUAL__`：
+2. 改 `docs/<id>/index.html` 里的 `window.__MANUAL__`：
    - `id` 与目录名一致
    - `name` 手册显示名
    - `access`：`public`（免密钥）或 `protected`（需站点密钥）
-3. 改 `docs/manuals/<id>/manual.json`：填 `name / type(app|plugin) / desc / version / status / tags`
-4. **在 `docs/manuals.json` 的 `manuals` 数组里注册一行**（门户靠它渲染卡片，漏注册则不显示）
-5. 在 `docs/manuals/<id>/_sidebar.md` 与 `_navbar.md` 登记本手册导航
-6. 把正文放到 `docs/manuals/<id>/guide/`；首页 `README.md` 写本手册概述
+3. 改 `docs/<id>/meta.json`：填 `name / type(app|plugin) / desc / version / status / tags`
+4. **在 `docs.json` 的 `docs` 数组里注册一行**（门户靠它渲染卡片，漏注册则不显示）
+5. 在 `docs/<id>/_sidebar.md` 与 `_navbar.md` 登记本手册导航
+6. 把正文放到 `docs/<id>/guide/`；首页 `README.md` 写本手册概述
 
 > `status` 取值：`active`(在用) / `wip`(建设中) / `deprecated`(已废弃)，决定门户徽章与筛选。
 
 ## 三、给现有手册追加一个板块
 
-1. 在 `docs/manuals/<id>/guide/<section>/` 下新建 `.md`（一节一文件）
+1. 在 `docs/<id>/guide/<section>/` 下新建 `.md`（一节一文件）
 2. 在本手册 `_sidebar.md` 加对应条目（缩进表示层级）
 3. 如需在顶部导航出现，在 `_navbar.md` 加一项
-4. 图片放 `docs/manuals/<id>/assets/img/<section>/`，正文用 `../assets/img/<section>/x.png` 引用
+4. 图片放 `docs/<id>/assets/img/<section>/`，正文用 `../assets/img/<section>/x.png` 引用
 5. 若涉及跨手册引用（极少见），用相对路径指向目标手册：`../../<other-id>/guide/...`（会整页跳转）
 
 ## 四、密钥门禁（多手册 / 文档级）
@@ -92,4 +92,4 @@ npx docsify-cli serve docs
 # 浏览器 http://localhost:3000/
 ```
 
-CI（见 `.github/workflows/pages.yml`）会做：死链检查、导航与 `manuals.json` 一致性检查。新增手册后请确认 `manuals.json` 与 `_sidebar.md` 条目一致。
+CI（见 `.github/workflows/pages.yml`）会做：死链检查、导航与 `docs.json` 一致性检查。新增手册后请确认 `docs.json` 与 `_sidebar.md` 条目一致。

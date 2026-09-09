@@ -39,12 +39,12 @@
   </script>
 
   <link rel="stylesheet" href="assets/libs/vue.css" />
-  <link rel="stylesheet" href="assets/css/manual.css" />
+  <link rel="stylesheet" href="assets/css/docs.css" />
 </head>
 <body>
   <div id="app">加载文档中…</div>
 
-  <!-- 先声明手册元信息，再交由 manual-boot.js 拼出 window.$docsify -->
+  <!-- 先声明手册元信息，再交由 docs-boot.js 拼出 window.$docsify -->
   <script>
     window.__MANUAL__ = {
       id: 'usage',
@@ -52,7 +52,9 @@
       homepage: '使用文档.md'
     };
   </script>
-  <script src="assets/js/manual-boot.js"></script>
+  <script>document.write('<script src="assets/js/site-config.js?_t=' + Date.now() + '"><\/script>');</script>
+  <script>document.write('<script src="assets/js/analytics.js?_t=' + Date.now() + '"><\/script>');</script>
+  <script src="assets/js/docs-boot.js?v=20260909-14"></script>
   <script>
     // 使用文档为单页，无需侧边栏 / 顶部导航菜单
     window.$docsify.loadSidebar = false;

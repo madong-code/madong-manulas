@@ -39,7 +39,7 @@
   </script>
 
   <link rel="stylesheet" href="../../assets/libs/vue.css" />
-  <link rel="stylesheet" href="../../assets/css/manual.css" />
+  <link rel="stylesheet" href="../../assets/css/docs.css?v=20260909-14" />
   <link rel="stylesheet" href="../../assets/css/gate.css" />
 </head>
 <body>
@@ -50,13 +50,14 @@
     window.__MANUAL__ = {
       id: 'saas',
       name: '多租户版手册',
-      homepage: 'README.md',
+      homepage: 'home.md',
+      // logo: '/assets/img/logo.png',  // 站点品牌 logo：本地 /assets/... 或 https://...
       // 门禁：默认需密钥；首页与「介绍」整节免密公开；其余走密钥（提示在内测群获取或自行搭建）
       access: {
         default: 'protected',
         keyId: 'saas',
         rules: [
-          { match: 'README.md', access: 'public' },            // 首页公开
+          { match: 'home.md', access: 'public' },            // 首页公开
           { match: 'guide/intro/**', access: 'public' }       // 前面「介绍」整节公开
         ],
         policies: {
@@ -70,7 +71,9 @@
     };
     DocsifyGate.bind('protected');
   </script>
-  <script src="../../assets/js/manual-boot.js"></script>
+  <script>document.write('<script src="../../assets/js/site-config.js?_t=' + Date.now() + '"><\/script>');</script>
+  <script>document.write('<script src="../../assets/js/analytics.js?_t=' + Date.now() + '"><\/script>');</script>
+  <script src="../../assets/js/docs-boot.js?v=20260909-14"></script>
   <script src="../../assets/js/theme.js"></script>
 
   <script src="../../assets/libs/docsify.min.js"></script>

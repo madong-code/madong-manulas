@@ -5,7 +5,7 @@
   <title><手册名> · Madong</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="../../assets/libs/vue.css" />
-  <link rel="stylesheet" href="../../assets/css/manual.css" />
+  <link rel="stylesheet" href="../../assets/css/docs.css?v=20260909-14" />
   <link rel="stylesheet" href="../../assets/css/gate.css" />
 </head>
 <body>
@@ -17,12 +17,15 @@
     window.__MANUAL__ = {
       id: '<id>',
       name: '<手册名>',
-      homepage: 'README.md',
+      homepage: 'home.md',
+      // logo: '/assets/img/logo.png',  // 站点品牌 logo：本地 /assets/... 或 https://...
       access: 'protected'
     };
     DocsifyGate.bind(window.__MANUAL__.access);
   </script>
-  <script src="../../assets/js/manual-boot.js"></script>
+  <script>document.write('<script src="../../assets/js/site-config.js?_t=' + Date.now() + '"><\/script>');</script>
+  <script>document.write('<script src="../../assets/js/analytics.js?_t=' + Date.now() + '"><\/script>');</script>
+  <script src="../../assets/js/docs-boot.js?v=20260909-14"></script>
 
   <script src="../../assets/libs/docsify.min.js"></script>
   <script src="../../assets/libs/search.min.js"></script>

@@ -5,8 +5,8 @@
   "desc": "<一句话描述>",
   "version": "v5.x",
   "status": "active",
-  "path": "manuals/<id>/",
-  "entry": "manuals/<id>/",
+  "path": "docs/<id>/",
+  "entry": "docs/<id>/",
   "access": "protected",
   "tags": ["标签1", "标签2"]
 }
