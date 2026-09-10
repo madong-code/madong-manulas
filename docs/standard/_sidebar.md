@@ -59,6 +59,12 @@
     - [4.3.3 查询构造器](guide/backend/advanced/query.md)
     - [4.3.4 消息推送](guide/backend/advanced/push.md)
     - [4.3.5 内容审核](guide/backend/advanced/review.md)
+  - [4.4 MCP 工具](guide/backend/mcp/index.md)
+    - [4.4.1 配置说明](guide/backend/mcp/configuration.md)
+    - [4.4.2 编辑器接入](guide/backend/mcp/ide.md)
+    - [4.4.3 自定义工具](guide/backend/mcp/custom-tools.md)
+    - [4.4.4 生产环境](guide/backend/mcp/production.md)
+    - [4.4.5 常见问题](guide/backend/mcp/faq.md)
 
 - [5. 二开指南](guide/dev-guide/index.md)
 
