@@ -37,6 +37,12 @@ return [
         'identity_resolver' => \app\mcp\MadongIdentityResolver::class,
     ],
 
+    // 内置可选工具开关（关闭后调用返回 enabled=false 提示；工具仍会注册，便于客户端感知）
+    'tools' => [
+        'db_schema' => true,
+        'log_tail'  => true,
+    ],
+
     // 工具扫描目录：相对路径基于 base_path()，支持 glob
     'discovery' => [
         'dirs' => [
@@ -58,6 +64,7 @@ return [
 | `session.store` | 单机部署用 `file` 即可；多进程共享会话或分布式部署用 `redis` |
 | `auth.jwt` | 开启后可用后台登录 token 直接调用，权限与后台一致 |
 | `auth.api_keys` | 配置式机器身份，适合编辑器/CI；**凭证只写在服务端配置里** |
+| `tools.*` | 内置可选工具开关，当前支持 `db_schema`（库表结构）、`log_tail`（日志读取）两类敏感查询；置 `false` 后调用返回 `enabled=false` 提示，不抛错 |
 | `discovery.dirs` | 新增工具目录时在此登记，支持 `plugin/*/app/mcp` glob 写法 |
 
 ## 身份与鉴权

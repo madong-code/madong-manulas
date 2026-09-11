@@ -15,13 +15,28 @@
 - 端点：`/mcp`（Streamable HTTP 传输，POST 收发 JSON-RPC）
 - 工具发现：`#[McpTool]` 属性标注即自动注册，无需手工登记
 - 鉴权：API Key / 后台 JWT / 匿名 三通道，工具可见性随身份权限过滤
-- 内置工具开箱即用：
+- 三层工具体系，开箱即用：
+
+**L1 框架内置**（`core/communication/mcp/tool/`，随框架自带）：
 
 | 工具名 | 权限 | 说明 |
 |--------|------|------|
 | `ping` | 匿名 | 连通性测试，恒定返回 `pong` |
 | `system_info` | 匿名 | 系统运行信息，`section` 可选 overview / php / time |
 | `current_user` | 需登录 | 返回当前调用者身份概要，用于验证鉴权链路 |
+| `tool_catalog` | 需登录 | 列出当前已注册的全部 MCP 工具，支持关键词过滤 |
+| `route_list` | 需登录 | 列出后端已注册 HTTP 路由（方法/路径/回调），联调确认端点 |
+| `menu_catalog` | 需登录 | 菜单与权限码清单（type=3 为按钮权限码），开发工具时选取真实权限码 |
+| `dict_catalog` | 需登录 | 业务字典及枚举项，理解状态码/枚举值含义 |
+| `db_schema` | 需登录 | 数据库表结构查询（表清单/字段清单），支持逻辑表名自动补前缀；可在配置中关闭 |
+| `log_tail` | 需登录 | 读取运行日志尾部并支持关键词过滤，排障定位；可在配置中关闭 |
+| `plugin_list` | 需登录 | 本地插件清单（版本/描述/安装状态） |
+| `server_monitor` | 需登录 | 服务器资源信息（disk/cpu/memory/redis/php） |
+| `code_search` | 需登录 | 在 app/ 与 core/ 内检索 PHP 源码，返回文件/行号/片段 |
+
+**L2 项目业务示范**（`app/mcp/`）：`admin_user_list`、`role_list` —— 业务工具写法参考。
+
+**L3 插件示范**（`plugin/workflow/app/mcp/`）：`wf_define_list`、`wf_task_todo` —— 插件自注册工具参考，复用插件自身 SDK 且数据范围跟随调用者身份。
 
 ## 怎么用（快速路径）
 
